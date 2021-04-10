@@ -1,6 +1,7 @@
 from urllib import request
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
+import os
 
 
 def main(user=''):
@@ -15,7 +16,7 @@ def main(user=''):
         graph = ''
     content = head + graph
     content = content.replace('head>', 'contentHead>')
-    env = Environment(loader=FileSystemLoader('./', encoding='utf8'))
+    env = Environment(loader=FileSystemLoader(os.path.dirname(__file__), encoding='utf8'))
     return env.get_template('template.html').render(content=content)
 
 
