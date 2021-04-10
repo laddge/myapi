@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Show Github Kusa</title>
 </head>
-<body>
+<body style="height: 100%;">
     <div id="content" style="transform-origin: 0 0; overflow: hidden; border: 1px solid green">
         {{ content }}
     </div>
@@ -13,9 +13,8 @@
     This page requires JavaScript.
     </noscript>
     <script type="text/javascript"><!--
-        document.body.style.margin = 0;
         if (document.querySelector('.js-calendar-graph')) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.margin = 0;
             if (getParam('theme') == 'dark') {
                 document.body.style.backgroundColor = '#333333';
                 document.getElementById('content').style.filter = 'invert(80%) hue-rotate(180deg) brightness(125%)';
