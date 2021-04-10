@@ -30,4 +30,4 @@ def read_item(item_id: int, q: str = None):
 
 @app.get("/github-kusa")
 async def read_github_kusa(user: str = ''):
-    HTMLResponse(github_kusa.main(user))
+    HTMLResponse(content=github_kusa.main(user), status_code=200)
