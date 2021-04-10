@@ -27,7 +27,7 @@
                     sc = vh / ch;
                     rs = Math.sqrt(sc);
                     co.style.width = (document.documentElement.clientWidth / rs) + 'px';
-                    co.style.height = (vh / rs) + 'px';
+                    document.body.style.height = (vh / rs) + 'px';
                     co.style.transform = "scale(" + rs + "," + rs + ")";
                 }
             });
