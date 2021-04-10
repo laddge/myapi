@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Show Github Kusa</title>
+</head>
+<body>
+    <div id="content" style="height: 415px; transform-origin: 0 0;">
+        {{ content }}
+    </div>
+    <noscript>
+    This page requires JavaScript.
+    </noscript>
+    <script type="text/javascript"><!--
+        document.body.style.margin = 0;
+        document.body.style.overflow = 'hidden';
+        if (document.querySelector('.js-calendar-graph')) {
+            if (getParam('theme') == 'dark') {
+                document.body.style.backgroundColor = '#333333';
+                document.getElementById('content').style.filter = 'invert(80%) hue-rotate(180deg) brightness(125%)';
+            }
+            window.addEventListener('resize', function(){
+                vh = document.body.clientHeight;
+                co = document.getElementById('content');
+                ch = 300;
+                if (vh < ch) {
+                    sc = vh / ch;
+                    rs = Math.sqrt(sc);
+                    co.style.width = document.body.clientWidth / rs;
+                    co.style.transform = "scale(" + rs + "," + rs + ")";
+                }
+            });
+        } else {
+            document.body.innerHTML = "<style>.desc { width: 100vw; text-align: center; }<\/style><br><div class='desc'><h2>Set exist user by query parameter.<\/h2><h2>For example: <a href=?user=laddge>" + location.href.replace(location.search, "") + "?user=laddge<\/a><\/h2><h2>And you can use dark theme by adding parameter \'theme=dark.\'<\/h2><\/div>";
+        }
+
+        function getParam(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+    --></script>
+</body>
+</html>

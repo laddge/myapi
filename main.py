@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse
 from urllib.parse import urlparse
 import os
+import github_kusa
 
 app = FastAPI()
 
@@ -25,3 +26,8 @@ def read_root():
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
+
+
+@app.get("/github-kusa")
+async def read_github_kusa(user: str = ''):
+    github_kusa.main(user)
