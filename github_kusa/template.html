@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Show Github Kusa</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 </head>
 <body style="height: 100%;">
     <div id="content" style="transform-origin: 0 0; overflow: hidden;">
@@ -22,7 +23,7 @@
             window.addEventListener('resize', function(){
                 vh = document.documentElement.clientHeight;
                 co = document.getElementById('content');
-                ch = 415;
+                ch = 300;
                 if (vh <= ch) {
                     sc = vh / ch;
                     rs = Math.sqrt(sc);
