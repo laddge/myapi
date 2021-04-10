@@ -20,10 +20,9 @@
                 document.getElementById('content').style.filter = 'invert(80%) hue-rotate(180deg) brightness(125%)';
             }
             window.addEventListener('resize', function(){
-                vh = document.body.clientHeight;
+                vh = document.documentElement.clientHeight;
                 co = document.getElementById('content');
                 ch = 300;
-                alert(vh);
                 if (vh < ch) {
                     sc = vh / ch;
                     rs = Math.sqrt(sc);
