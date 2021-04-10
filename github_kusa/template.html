@@ -6,7 +6,7 @@
     <title>Show Github Kusa</title>
 </head>
 <body style="height: 100%;">
-    <div id="content" style="transform-origin: 0 0; overflow: hidden; position: fixed;">
+    <div id="content" style="transform-origin: 0 0; overflow: hidden;">
         {{ content }}
     </div>
     <noscript>
@@ -22,7 +22,7 @@
             window.addEventListener('resize', function(){
                 vh = document.documentElement.clientHeight;
                 co = document.getElementById('content');
-                ch = 300;
+                ch = 415;
                 if (vh <= ch) {
                     sc = vh / ch;
                     rs = Math.sqrt(sc);
