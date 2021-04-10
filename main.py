@@ -10,7 +10,7 @@ app = FastAPI()
 async def add_process_time_header(request: Request, call_next):
     if 'herokuapp' in urlparse(str(request.url)).netloc:
         domain = os.getenv('DOMAIN', 'example.com')
-        url = '{uri.scheme}://{domain}{uri.path}?{uri.query}'.format(uri=urlparse(str(request.url)), domain=domain)
+        url = url.parse(str(request.url))._replace(netloc=domain)
         response = RedirectResponse(url)
     else:
         response = await call_next(request)
