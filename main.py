@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from urllib.parse import urlparse
 import os
 import github_kusa
@@ -30,4 +30,4 @@ def read_item(item_id: int, q: str = None):
 
 @app.get("/github-kusa")
 async def read_github_kusa(user: str = ''):
-    github_kusa.main(user)
+    HTMLResponse(github_kusa.main(user))
