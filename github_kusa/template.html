@@ -24,7 +24,7 @@
                 vh = document.documentElement.clientHeight;
                 co = document.getElementById('content');
                 ch = 300;
-                if (vh < ch) {
+                if (vh != ch) {
                     sc = vh / ch;
                     rs = Math.sqrt(sc);
                     co.style.width = document.documentElement.clientWidth / rs;
