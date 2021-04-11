@@ -20,7 +20,7 @@ def read(b64):
     buf = BytesIO(data)
     try:
         data = qreader.read(buf)
-    except qreader.exceptions.QrCorruptError:
+    except Exception:
         string = ''
     else:
         string = data
