@@ -40,7 +40,7 @@ async def read_github_kusa(user: str = ''):
 
 @app.get("/qrtool")
 async def get_qrtool():
-    return HTMLResponse(content=qrtool.main(b64='R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='), status_code=200)
+    return HTMLResponse(content=qrtool.main(b64='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIHWP4DwQACfsD/Qy7W+cAAAAASUVORK5CYII='), status_code=200)
 
 
 @app.post("/qrtool")
@@ -54,7 +54,7 @@ async def post_qrtool(string: Optional[str] = Form(''), b64: Optional[str] = For
             res_string = ''
     elif b64 != '':
         res_string = qrtool.read(b64)
-        res_b64 = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+        res_b64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIHWP4DwQACfsD/Qy7W+cAAAAASUVORK5CYII='
         dl = False
     else:
         res_string = ''
