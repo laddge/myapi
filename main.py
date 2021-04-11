@@ -22,15 +22,10 @@ async def add_process_time_header(request: Request, call_next):
 
 
 @app.get("/")
-def read_root():
+async def read_root():
     env = Environment(loader=FileSystemLoader(os.path.dirname(__file__), encoding='utf8'))
     html = env.get_template('index.html').render()
     return HTMLResponse(content=html, status_code=200)
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
 
 
 @app.get("/github-kusa")
