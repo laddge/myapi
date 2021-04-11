@@ -3,9 +3,8 @@ from base64 import b64decode, b64encode
 from io import BytesIO
 
 import qrcode
+import qreader
 from jinja2 import Environment, FileSystemLoader
-from PIL import Image
-from pyzbar.pyzbar import decode
 
 
 def make(string):
@@ -19,11 +18,12 @@ def make(string):
 def read(b64):
     data = b64decode(b64)
     buf = BytesIO(data)
-    img = Image.open(buf)
-    if decode(img):
-        string = decode(img)[0].data.decode()
-    else:
+    try:
+        data = qreader.read(buf)
+    except qreader.exceptions.QrCorruptError:
         string = ''
+    else:
+        string = data
     return string
 
 
