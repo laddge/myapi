@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse, HTMLResponse, Response
 from urllib.parse import urlparse
+from jinja2 import Environment, FileSystemLoader
 import os
 import github_kusa
 
@@ -22,7 +23,9 @@ async def add_process_time_header(request: Request, call_next):
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    env = Environment(loader=FileSystemLoader(os.path.dirname(__file__), encoding='utf8'))
+    html = env.get_template('index.html').render()
+    return HTMLResponse(content=html, status_code=200)
 
 
 @app.get("/items/{item_id}")
