@@ -6,6 +6,5 @@ beautifulsoup4>=4.9.3
 qrcode>=6.1
 python-multipart>=0.0.5
 Pillow>=8.2.0
-reedsolo>=1.5.4
-python-dateutil>=2.8.1
-git+https://github.com/ewino/qreader.git
+numpy>=1.19.4
+opencv-python>=4.5.0
