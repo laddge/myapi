@@ -16,8 +16,9 @@
         if (document.querySelector('.js-calendar-graph')) {
             document.body.style.margin = 0;
             if (getParam('theme') == 'dark') {
-                document.body.style.backgroundColor = '#333333';
-                document.getElementById('content').style.filter = 'invert(80%) hue-rotate(180deg) brightness(125%)';
+                document.getElementsByTagName('html')[0].setAttribute('data-color-mode', 'dark');
+                document.getElementsByTagName('html')[0].setAttribute('data-light-theme', 'light');
+                document.getElementsByTagName('html')[0].setAttribute('data-dark-theme', 'dark_dimmed');
             }
             window.addEventListener('resize', function(){
                 vh = document.documentElement.clientHeight;
