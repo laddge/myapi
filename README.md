@@ -1,2 +1,2 @@
-# My Toolbox🛠
-Served on Heroku -> [[Open](https://toolbox.laddge.tk)]
+# My Api🛠
+Served on Heroku -> [[Open](https://api.laddge.tk)]
