@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ツイ廃度測定</title>
+</head>
+<body>
+    <input type="search" id="input" placeholder="@ユーザー名"><input type="button" value="測定！" onclick="setUser();"><br>
+    {{ output }}
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <script type="text/javascript">
+        function setUser() {
+            let currentUser = '{{ user }}';
+            let newUser = String(document.getElementById('input').value).replace('@', '');
+            if (currentUser) {
+                location.href = String(location.href).replace(new RegExp(currentUser + '$'), newUser);
+            } else {
+                location.href = newUser;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from jinja2 import Environment, FileSystemLoader
 
 import github_kusa
+import tsuihai
 
 app = FastAPI()
 
@@ -38,3 +39,8 @@ async def read_root():
 @app.get("/github-kusa")
 async def read_github_kusa(user: str = ""):
     return HTMLResponse(content=github_kusa.main(user), status_code=200)
+
+
+@app.get("/tsuihai/{user}")
+async def read_tsuihai(user: str = ""):
+    return HTMLResponse(content=tsuihai.main(user), status_code=200)
