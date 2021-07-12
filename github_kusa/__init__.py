@@ -2,6 +2,7 @@ from urllib import request
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
 import os
+import re
 
 
 def main(user=''):
@@ -20,6 +21,8 @@ def main(user=''):
         graph = ''
     content = head + graph
     content = content.replace('head>', 'contentHead>')
+    content = re.sub('^.*og:.*\n', '', content, flags=re.MULTILINE)
+    content = re.sub('^.*twitter:.*\n', '', content, flags=re.MULTILINE)
     return env.get_template('template.html').render(content=content)
 
 
