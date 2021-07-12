@@ -5,7 +5,11 @@ import os
 
 
 def main(user=''):
-    res = request.urlopen('https://github.com/' + user)
+    env = Environment(loader=FileSystemLoader(os.path.dirname(__file__), encoding='utf8'))
+    try:
+        res = request.urlopen('https://github.com/' + user)
+    except Exception:
+        return env.get_template('template.html').render(content='')
     soup = BeautifulSoup(res, 'html.parser')
     res.close()
     head = str(soup.select_one('head'))
@@ -16,7 +20,6 @@ def main(user=''):
         graph = ''
     content = head + graph
     content = content.replace('head>', 'contentHead>')
-    env = Environment(loader=FileSystemLoader(os.path.dirname(__file__), encoding='utf8'))
     return env.get_template('template.html').render(content=content)
 
 

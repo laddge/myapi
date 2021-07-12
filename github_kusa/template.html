@@ -3,7 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Show Github Kusa</title>
+    <meta name="twitter:card" content="summary_large">
+    <meta name="twitter:site" content="@laddge_">
+    <meta property="og:url" content="https://api.laddge.tk/github-kusa">
+    <meta property="og:title" content="Github Kusa - Laddge API">
+    <meta property="og:description" content="Githubの草だけ表示">
+    <meta property="og:image" content="https://user-images.githubusercontent.com/67098414/125216578-8de10300-e2f9-11eb-88b1-7f8846a85a0d.png">
+    <title>Github Kusa - Laddge API</title>
 </head>
 <body style="height: 100%;">
     <div id="content" style="transform-origin: 0 0; overflow: hidden;">
@@ -33,7 +39,7 @@
                 }
             });
         } else {
-            document.body.innerHTML = "<style>.desc { width: 100vw; text-align: center; }<\/style><br><div class='desc'><h2>Set exist user by query parameter.<\/h2><h2>For example: <a href=?user=laddge>" + location.href.replace(location.search, "") + "?user=laddge<\/a><\/h2><h2>And you can use dark theme by adding parameter \'theme=dark.\'<\/h2><\/div>";
+            document.body.innerHTML = '<input type="search" id="input" placeholder="USER ID"><input type="button" value="GO" onclick="setUser();">';
         }
 
         function getParam(name, url) {
@@ -45,6 +51,11 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
+
+        function setUser() {
+            window.location.href = '?user=' + document.getElementById('input').value;
+        }
+
     --></script>
 </body>
 </html>
