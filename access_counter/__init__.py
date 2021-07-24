@@ -28,8 +28,8 @@ def main(ipaddr):
         new = False
     else:
         new = True
-        # session.add(Db(ipaddr=ipaddr, date=today))
-        # session.commit()
+        session.add(Db(ipaddr=ipaddr, date=today))
+        session.commit()
     count = session.query(Db).count()
     return count, new
 
