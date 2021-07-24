@@ -24,12 +24,12 @@ session = Session()
 def main(ipaddr):
     dt_today = datetime.datetime.today()
     today = '{}-{}-{}'.format(dt_today.year, dt_today.month, dt_today.day)
-    if session.query(Db).filter(Db.ipaddr == ipaddr, Db.date == today):
+    if list(session.query(Db).filter(Db.ipaddr == ipaddr, Db.date == today)):
         new = False
     else:
         new = True
-        session.add(Db(ipaddr=ipaddr, date=today))
-        session.commit()
+        # session.add(Db(ipaddr=ipaddr, date=today))
+        # session.commit()
     count = session.query(Db).count()
     return count, new
 
