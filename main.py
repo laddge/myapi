@@ -47,7 +47,7 @@ async def read_tsuihai(user: str = ""):
     return HTMLResponse(content=tsuihai.main(user), status_code=200)
 
 
-@app.get("/acces_counter")
+@app.get("/access_counter")
 async def read_access_counter(request: Request):
     count, new = access_counter.main(request.client.host)
     return {'count': count, 'ipaddr': request.client.host, 'new': new}
