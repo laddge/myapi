@@ -12,7 +12,7 @@ Base = declarative_base()
 
 class Db(Base):
     __tablename__ = "access_counter"
-    id = Column(Integer, pprimary_key=True)
+    id = Column(Integer, primary_key=True)
     ipaddr = Column(Text)
     date = Column(Text)
 
