@@ -6,3 +6,5 @@ beautifulsoup4>=4.9.3
 python-multipart>=0.0.5
 numpy>=1.19.4
 tweepy>=3.10.0
+SQLAlchemy>=1.4.9
+psycopg2>=2.8.6

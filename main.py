@@ -7,6 +7,7 @@ from jinja2 import Environment, FileSystemLoader
 
 import github_kusa
 import tsuihai
+import access_counter
 
 app = FastAPI()
 
@@ -44,3 +45,9 @@ async def read_github_kusa(user: str = ""):
 @app.get("/tsuihai/{user}")
 async def read_tsuihai(user: str = ""):
     return HTMLResponse(content=tsuihai.main(user), status_code=200)
+
+
+@app.get("/acces_counter")
+async def read_access_counter(request: Request):
+    count, new = access_counter.main(request.client.host)
+    return {'count': count, 'ipaddr': request.client.host, 'new': new}
