@@ -6,9 +6,19 @@ from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from jinja2 import Environment, FileSystemLoader
 
+from pydantic import BaseModel
+
 import github_kusa
 import tsuihai
 import access_counter
+import waku_icon
+
+
+class WakuIcon(BaseModel):
+    waku: str
+    username: str
+    ratio: float
+
 
 app = FastAPI()
 
@@ -60,3 +70,13 @@ async def read_tsuihai(user: str = ""):
 async def read_access_counter(request: Request):
     count, new = access_counter.main(request.client.host)
     return {'count': count, 'ipaddr': request.client.host, 'new': new}
+
+
+@app.get("/waku_icon")
+async def read_waku_icon():
+    return HTMLResponse(waku_icon.get())
+
+
+@app.post("/waku_icon")
+async def post_waku_icon(data: WakuIcon):
+    return waku_icon.post(data)

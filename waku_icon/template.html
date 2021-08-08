@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>枠付きアイコン生成 | Laddge API</title>
+</head>
+<body>
+    <h1 class="text-center m-3 fw-bold">枠付きアイコン生成</h1>
+    <hr><br>
+    <div class="row mx-auto">
+        <div class="mx-auto col-auto">
+            <h5 class="fw-normal">枠の種類:</h5>
+            <div class="m-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="waku" id="waku1" value="googleone" checked>
+                    <label class="form-check-label" for="waku1">
+                        Google One 枠
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="waku" id="waku2" value="edge">
+                    <label class="form-check-label" for="waku2">
+                        MS Edge 枠
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="waku" id="waku3" value="laddge">
+                    <label class="form-check-label" for="waku3">
+                        Laddge Color 枠
+                    </label>
+                </div>
+            </div>
+            <h5 class="fw-normal">Twitter ID:</h5>
+            <div class="input-group m-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="atmark">@</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="atmark" id="username">
+            </div>
+            <h5 class="fw-normal">比率:</h5>
+            <div class="input-group m-3">
+                <input type="text" class="form-control" placeholder="87.5" aria-label="87.5" value="87.5" aria-describedby="per" id="ratio">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="per">%</span>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary m-3" onclick="action();">生成！！</button>
+            </div>
+        </div>
+    </div>
+    <div id="output" class="text-center"></div>
+    <script type="text/javascript">
+        function action() {
+            let output = document.getElementById('output');
+            output.innerHTML = 'Loading...';
+            let radio = document.getElementsByName('waku');
+            let waku = '';
+            for (let i = 0; i < radio.length; i++) {
+                if (radio.item(i).checked) {
+                    waku = radio.item(i).value;
+                }
+            }
+            let username = document.getElementById('username').value;
+            let ratio = document.getElementById('ratio').value / 100;
+            let data = {waku, username, ratio}
+            let headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            };
+            fetch("/waku_icon", {method: 'POST', headers, body: JSON.stringify(data)})
+                .then(r => {
+                    return r.json();
+                })
+                .then(d => {
+                    console.log(JSON.stringify(d));
+                    if (d.status == 1) {
+                        output.innerHTML = '何かがおかしい...';
+                    } else {
+                        output.innerHTML = '<img src="data:image/png;base64,' + d.data + '" style="width: 50%;">';
+                    }
+                })
+                .catch(e => {
+                    output.innerHTML = '何かがおかしい...';
+                    console.log(e);
+                });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>
