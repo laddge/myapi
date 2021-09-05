@@ -101,4 +101,4 @@ async def post_questbox(id: str = Form(...), text: str = Form(...)):
     if id not in lineid_dict.keys():
         return {"error": "not found"}
     lineid = lineid_dict[id]
-    return HTMLResponse(questbox.get(id, lineid, text))
+    return HTMLResponse(questbox.post(id, lineid, text))
