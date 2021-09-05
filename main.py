@@ -96,7 +96,7 @@ async def read_questbox(id: str):
 
 
 @app.post("/questbox")
-async def post_questbox(id: Form(...), text: Form(...)):
+async def post_questbox(id: str = Form(...), text: str = Form(...)):
     lineid_dict = json.loads(os.getenv('LINE_ID'))
     if id not in lineid_dict.keys():
         return {"error": "not found"}
