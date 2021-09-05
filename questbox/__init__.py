@@ -10,7 +10,7 @@ from linebot.models import ImageSendMessage
 
 
 def get(id):
-    env = Environment(loader=FileSystemLoader('.'))
+    env = Environment(loader=FileSystemLoader(os.path.dirname(__file__), encoding='utf8'))
     html = env.get_template('get.html').render({'id': id})
     return html
 
@@ -75,7 +75,7 @@ def post(id, lineid, text):
     line_bot_api.push_message(lineid, ImageSendMessage(
         original_content_url=url, preview_image_url=url
     ))
-    env = Environment(loader=FileSystemLoader('.'))
+    env = Environment(loader=FileSystemLoader(os.path.dirname(__file__), encoding='utf8'))
     html = env.get_template('post.html').render({'id': id, 'url': url})
     return html
 
