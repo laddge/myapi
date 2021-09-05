@@ -18,7 +18,7 @@ def get(id):
 def post(id, lineid, text):
     tl = text.strip().split('\n')
     dummy = PIL.ImageDraw.Draw(PIL.Image.new('RGB', (0, 0)))
-    font = PIL.ImageFont.truetype('./font.ttf', 36)
+    font = PIL.ImageFont.truetype(os.path.join(os.path.dirname(__file__), 'font.ttf'), 36)
     i = 0
     while True:
         if i + 1 >= len(tl):
@@ -69,7 +69,7 @@ def post(id, lineid, text):
     logo_base.paste(logo, (325, ih - 90))
     img = PIL.Image.alpha_composite(img.convert('RGBA'), logo_base.convert('RGBA'))
     path = 'img/{}.png'.format(time.time())
-    img.save(path)
+    img.save(os.path.join(os.path.dirname(__file__), path))
     url = 'https://{}/questbox/{}'.format(os.getenv('DOMAIN'), path)
     line_bot_api = LineBotApi(os.getenv('LINE_AT'))
     line_bot_api.push_message(lineid, ImageSendMessage(
