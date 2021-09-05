@@ -2,7 +2,7 @@ import os
 import json
 from urllib.parse import urlparse
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -21,11 +21,6 @@ class WakuIcon(BaseModel):
     waku: str
     username: str
     ratio: float
-
-
-class QuestBox(BaseModel):
-    id: str
-    text: str
 
 
 app = FastAPI()
@@ -101,9 +96,9 @@ async def read_questbox(id: str):
 
 
 @app.post("/questbox")
-async def post_questbox(data: QuestBox):
+async def post_questbox(id: Form(...), text: Form(...)):
     lineid_dict = json.loads(os.getenv('LINE_ID'))
-    if data.id not in lineid_dict.keys():
+    if id not in lineid_dict.keys():
         return {"error": "not found"}
-    lineid = lineid_dict[data.id]
-    return HTMLResponse(questbox.get(data.id, lineid, data.text))
+    lineid = lineid_dict[id]
+    return HTMLResponse(questbox.get(id, lineid, text))
