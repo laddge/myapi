@@ -21,7 +21,7 @@ def post(id, lineid, text):
     font = PIL.ImageFont.truetype(os.path.join(os.path.dirname(__file__), 'font.ttf'), 36)
     i = 0
     while True:
-        if i + 1 >= len(tl):
+        if i + 1 > len(tl):
             break
         line = tl[i].strip()
         if len(line) != 0:
