@@ -1,9 +1,11 @@
 import os
+import json
 from urllib.parse import urlparse
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from jinja2 import Environment, FileSystemLoader
 
 from pydantic import BaseModel
@@ -12,12 +14,18 @@ import github_kusa
 import tsuihai
 import access_counter
 import waku_icon
+import questbox
 
 
 class WakuIcon(BaseModel):
     waku: str
     username: str
     ratio: float
+
+
+class QuestBox(BaseModel):
+    id: str
+    text: str
 
 
 app = FastAPI()
@@ -29,6 +37,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/questbox/img", StaticFiles(directory="questbox/img"), name="questbox_img")
 
 
 @app.middleware("http")
@@ -80,3 +90,20 @@ async def read_waku_icon():
 @app.post("/waku_icon")
 async def post_waku_icon(data: WakuIcon):
     return waku_icon.post(data)
+
+
+@app.get("/questbox")
+async def read_questbox(id: str):
+    lineid_dict = json.loads(os.getenv('LINE_ID'))
+    if id not in lineid_dict.keys():
+        return {"error": "not found"}
+    return HTMLResponse(questbox.get(id))
+
+
+@app.post("/questbox")
+async def post_questbox(data: QuestBox):
+    lineid_dict = json.loads(os.getenv('LINE_ID'))
+    if data.id not in lineid_dict.keys():
+        return {"error": "not found"}
+    lineid = lineid_dict[data.id]
+    return HTMLResponse(questbox.get(data.id, lineid, data.text))

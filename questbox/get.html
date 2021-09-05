@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>質問箱 | Laddge API</title>
+</head>
+<body>
+    <h1 class="text-center m-3 fw-bold">質問箱</h1>
+    <hr><br>
+    <div class="row mx-auto">
+        <h5 class="text-center">{{ id }}さんに匿名で質問</h5>
+        <form method="POST" action="" class="mx-auto col-9">
+            <input type="hidden" value="{{ id }}" name="id">
+            <textarea rows=5 class="form-control w-100" name="text"></textarea>
+            <div class="text-center">
+                <button class="btn btn-primary m-3" type="submit">送信！！</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>
