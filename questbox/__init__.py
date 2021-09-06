@@ -66,7 +66,7 @@ def post(id, lineid, text):
              start=90, end=180, fill=color, width=lw)
     logo_base = PIL.Image.new('RGBA', img.size, (255, 255, 255, 0))
     logo = PIL.Image.open(os.path.join(os.path.dirname(__file__), 'logo.png')).resize((60, 60))
-    logo_base.paste(logo, (325, ih - 90))
+    logo_base.paste(logo, (300, ih - 90))
     img = PIL.Image.alpha_composite(img.convert('RGBA'), logo_base.convert('RGBA'))
     path = 'img/{}.png'.format(time.time())
     img.save(os.path.join(os.path.dirname(__file__), path))
