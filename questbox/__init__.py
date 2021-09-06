@@ -31,7 +31,7 @@ def post(id, lineid, text):
                 else:
                     instext = line[:-rem]
                 w, h = dummy.textsize(instext, font=font)
-                if w <= 620:
+                if w <= 560:
                     break
             remlen = len(line) - len(instext)
             if remlen != 0:
@@ -45,22 +45,22 @@ def post(id, lineid, text):
         ih = 300
     else:
         ih = h + 120
-    img = PIL.Image.new('RGB', (720, ih), (244, 245, 257))
+    img = PIL.Image.new('RGB', (660, ih), (244, 245, 257))
     draw = PIL.ImageDraw.Draw(img)
-    draw.text(((720 - w) / 2, (ih - h - 60) / 2), text, fill=(30, 30, 30), font=font)
+    draw.text(((660 - w) / 2, (ih - h - 60) / 2), text, fill=(30, 30, 30), font=font)
     r = 20
     lw = 5
     m = 7
     lm = m + lw / 2
     color = (40, 163, 204)
     draw.line((lm, lm + r - 1, lm, ih - lm - r + 1), fill=color, width=lw)
-    draw.line((lm + r - 1, lm, 720 - lm - r + 1, lm), fill=color, width=lw)
-    draw.line((720 - lm, lm + r - 1, 720 - lm, ih - lm - r + 1), fill=color, width=lw)
-    draw.line((lm + r - 1, ih - lm, 720 - lm - r + 1, ih - lm), fill=color, width=lw)
+    draw.line((lm + r - 1, lm, 660 - lm - r + 1, lm), fill=color, width=lw)
+    draw.line((660 - lm, lm + r - 1, 660 - lm, ih - lm - r + 1), fill=color, width=lw)
+    draw.line((lm + r - 1, ih - lm, 660 - lm - r + 1, ih - lm), fill=color, width=lw)
     draw.arc((m, m, m + r * 2, m + r * 2), start=180, end=270, fill=color, width=lw)
-    draw.arc((720 - m - r * 2 - 1, m, 720 - m - 1, m + r * 2),
+    draw.arc((660 - m - r * 2 - 1, m, 660 - m - 1, m + r * 2),
              start=270, end=360, fill=color, width=lw)
-    draw.arc((720 - m - r * 2 - 1, ih - m - r * 2 - 1, 720 - m -
+    draw.arc((660 - m - r * 2 - 1, ih - m - r * 2 - 1, 660 - m -
              1, ih - m - 1), start=0, end=90, fill=color, width=lw)
     draw.arc((m, ih - m - r * 2 - 1, m + r * 2, ih - m - 1),
              start=90, end=180, fill=color, width=lw)
