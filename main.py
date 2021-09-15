@@ -15,6 +15,7 @@ import tsuihai
 import access_counter
 import waku_icon
 import questbox
+import sentmaker
 
 
 class WakuIcon(BaseModel):
@@ -102,3 +103,8 @@ async def post_questbox(id: str = Form(...), text: str = Form(...)):
         return {"error": "not found"}
     lineid = lineid_dict[id]
     return HTMLResponse(questbox.post(id, lineid, text))
+
+
+@app.get("/sentmaker")
+async def read_sentmaker():
+    return sentmaker.main()
