@@ -107,4 +107,4 @@ async def post_questbox(id: str = Form(...), text: str = Form(...)):
 
 @app.get("/sentmaker")
 async def read_sentmaker():
-    return sentmaker.main()
+    return HTMLResponse(content=sentmaker.main(), status_code=200)
