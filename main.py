@@ -16,12 +16,17 @@ import access_counter
 import waku_icon
 import questbox
 import sentmaker
+import maritozzo_icon
 
 
 class WakuIcon(BaseModel):
     waku: str
     username: str
     ratio: float
+
+
+class MaritozzoIcon(BaseModel):
+    username: str
 
 
 app = FastAPI()
@@ -108,3 +113,13 @@ async def post_questbox(id: str = Form(...), text: str = Form(...)):
 @app.get("/sentmaker")
 async def read_sentmaker():
     return HTMLResponse(content=sentmaker.main(), status_code=200)
+
+
+@app.get("/maritozzo_icon")
+async def read_maritozzo_icon():
+    return HTMLResponse(maritozzo_icon.get())
+
+
+@app.post("/maritozzo_icon")
+async def post_maritozzo_icon(data: MaritozzoIcon):
+    return maritozzo_icon.post(data.username)
