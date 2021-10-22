@@ -17,6 +17,7 @@ import waku_icon
 import questbox
 import sentmaker
 import maritozzo_icon
+import tw_sn2id
 
 
 class WakuIcon(BaseModel):
@@ -26,6 +27,10 @@ class WakuIcon(BaseModel):
 
 
 class MaritozzoIcon(BaseModel):
+    username: str
+
+
+class Sn2Id(BaseModel):
     username: str
 
 
@@ -123,3 +128,13 @@ async def read_maritozzo_icon():
 @app.post("/maritozzo_icon")
 async def post_maritozzo_icon(data: MaritozzoIcon):
     return maritozzo_icon.post(data.username)
+
+
+@app.get("/tw_sn2id")
+async def read_tw_sn2id():
+    return HTMLResponse(tw_sn2id.get())
+
+
+@app.post("/tw_sn2id")
+async def post_tw_sn2id(data: Sn2Id):
+    return tw_sn2id.post(data.username)
