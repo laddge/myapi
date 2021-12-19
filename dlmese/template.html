@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@laddge_">
+    <meta property="og:url" content="https://api.laddge.tk/dlmese">
+    <meta property="og:title" content="MESE downloader | Laddge API">
+    <meta property="og:description" content="MESE downloader">
+    <meta property="og:image" content="https://github.com/laddge.png">
+    <title>MESE downloader | Laddge API</title>
+</head>
+<body>
+    <h1 class="text-center m-3 fw-bold">MESE downloader</h1>
+    <hr><br>
+    <div class="row mx-auto">
+        <div class="mx-auto col-auto">
+            <h5 class="fw-normal">チーム名:</h5>
+            <div class="input-group m-3">
+                <input type="text" class="form-control" placeholder="Team" aria-label="Team" id="team">
+            </div>
+            <h5 class="fw-normal">パスワード:</h5>
+            <div class="input-group m-3">
+                <input type="text" class="form-control" placeholder="Password" aria-label="Password" id="passwd">
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary m-3" onclick="action();">Generate</button>
+            </div>
+        </div>
+    </div>
+    <div id="output" class="text-center"></div>
+    <script type="text/javascript">
+        function action() {
+            let output = document.getElementById('output');
+            output.innerHTML = 'Loading...';
+            let team = document.getElementById('team').value;
+            let passwd = document.getElementById('passwd').value;
+            let data = {team, passwd}
+            let headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            };
+            fetch("/dlmese", {method: 'POST', headers, body: JSON.stringify(data)})
+                .then(r => {
+                    return r.json();
+                })
+                .then(d => {
+                    console.log(JSON.stringify(d));
+                    if (d.output == undefined) {
+                        output.innerHTML = '何かがおかしい...';
+                    } else {
+                        output.innerHTML = '<a href="data:application/zip;base64,' + d.output + '" download="' + team + '.zip"><button class="btn btn-primary m-3">Download<\/button><\/a>';
+                    }
+                })
+                .catch(e => {
+                    output.innerHTML = '何かがおかしい...';
+                    console.log(e);
+                });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>

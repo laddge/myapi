@@ -18,6 +18,7 @@ import questbox
 import sentmaker
 import maritozzo_icon
 import tw_sn2id
+import dlmese
 
 
 class WakuIcon(BaseModel):
@@ -32,6 +33,11 @@ class MaritozzoIcon(BaseModel):
 
 class Sn2Id(BaseModel):
     username: str
+
+
+class Mese(BaseModel):
+    team: str
+    passwd: str
 
 
 app = FastAPI()
@@ -138,3 +144,13 @@ async def read_tw_sn2id():
 @app.post("/tw_sn2id")
 async def post_tw_sn2id(data: Sn2Id):
     return tw_sn2id.post(data.username)
+
+
+@app.get("/dlmese")
+async def read_dlmese():
+    return HTMLResponse(dlmese.get())
+
+
+@app.post("/dlmese")
+async def post_dlmese(data: Mese):
+    return dlmese.post(data.team, data.passwd)
