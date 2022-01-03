@@ -6,6 +6,7 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from typing import Optional
 from jinja2 import Environment, FileSystemLoader
 
 from pydantic import BaseModel
@@ -19,6 +20,7 @@ import sentmaker
 import maritozzo_icon
 import tw_sn2id
 import dlmese
+import blogimg
 
 
 class WakuIcon(BaseModel):
@@ -91,7 +93,7 @@ async def read_tsuihai(user: str = ""):
 @app.get("/access_counter")
 async def read_access_counter(request: Request):
     count, new = access_counter.main(request.client.host)
-    return {'count': count, 'ipaddr': request.client.host, 'new': new}
+    return {"count": count, "ipaddr": request.client.host, "new": new}
 
 
 @app.get("/waku_icon")
@@ -106,7 +108,7 @@ async def post_waku_icon(data: WakuIcon):
 
 @app.get("/questbox")
 async def read_questbox(id: str):
-    lineid_dict = json.loads(os.getenv('LINE_ID'))
+    lineid_dict = json.loads(os.getenv("LINE_ID"))
     if id not in lineid_dict.keys():
         return {"error": "not found"}
     return HTMLResponse(questbox.get(id))
@@ -114,7 +116,7 @@ async def read_questbox(id: str):
 
 @app.post("/questbox")
 async def post_questbox(id: str = Form(...), text: str = Form(...)):
-    lineid_dict = json.loads(os.getenv('LINE_ID'))
+    lineid_dict = json.loads(os.getenv("LINE_ID"))
     if id not in lineid_dict.keys():
         return {"error": "not found"}
     lineid = lineid_dict[id]
@@ -154,3 +156,14 @@ async def read_dlmese():
 @app.post("/dlmese")
 async def post_dlmese(data: Mese):
     return dlmese.post(data.team, data.passwd)
+
+
+@app.get("/blogimg")
+async def read_blogimg(
+    text: str,
+    bgcolor: Optional[str] = None,
+    linecolor: Optional[str] = None,
+):
+    return Response(
+        content=blogimg.get(text, bgcolor, linecolor), media_type="image/png"
+    )
