@@ -163,9 +163,10 @@ async def read_blogimg(
     text: str,
     bgcolor: Optional[str] = None,
     fgcolor: Optional[str] = None,
+    logourl: Optional[str] = None,
 ):
     try:
-        content = blogimg.get(text, bgcolor, fgcolor)
+        content = blogimg.get(text, bgcolor, fgcolor, logourl)
     except Exception as e:
         print(e)
         return Response(content="Something wrong!")

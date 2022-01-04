@@ -4,9 +4,10 @@ import PIL.ImageFont
 import re
 import os
 from io import BytesIO
+import requests
 
 
-def get(text, bgcolor='(255, 255, 255)', fgcolor='(0, 0, 0)'):
+def get(text, bgcolor='(255, 255, 255)', fgcolor='(0, 0, 0)', logourl=None):
     if not bgcolor:
         bgcolor = '(255, 255, 255)'
     if not fgcolor:
@@ -78,9 +79,12 @@ def get(text, bgcolor='(255, 255, 255)', fgcolor='(0, 0, 0)'):
         width=lw,
     )
     logo_base = PIL.Image.new('RGBA', img.size, (255, 255, 255, 0))
-    logo = PIL.Image.open(os.path.join(os.path.dirname(__file__), 'logo.png')).resize(
-        (60, 60)
-    )
+    if logourl:
+        res = requests.get(logourl)
+        logo = PIL.Image.open(BytesIO(res.content))
+    else:
+        logo = PIL.Image.open(os.path.join(os.path.dirname(__file__), 'logo.png'))
+    logo = logo.resize((60, 60))
     logo_base.paste(logo, (290, ih - 90))
     img = PIL.Image.alpha_composite(img.convert('RGBA'), logo_base.convert('RGBA'))
     buff = BytesIO()
