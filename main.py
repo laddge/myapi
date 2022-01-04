@@ -162,8 +162,8 @@ async def post_dlmese(data: Mese):
 async def read_blogimg(
     text: str,
     bgcolor: Optional[str] = None,
-    linecolor: Optional[str] = None,
+    fgcolor: Optional[str] = None,
 ):
     return Response(
-        content=blogimg.get(text, bgcolor, linecolor), media_type="image/png"
+        content=blogimg.get(text, bgcolor, fgcolor), media_type="image/png"
     )
