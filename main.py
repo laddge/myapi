@@ -22,6 +22,9 @@ import tw_sn2id
 import dlmese
 import blogimg
 
+import _mesenot
+_mesenot.main()
+
 
 class WakuIcon(BaseModel):
     waku: str
