@@ -1,6 +1,7 @@
 import datetime
 import os
 import time
+import threading
 
 import requests
 import schedule
@@ -32,11 +33,16 @@ def job():
     os.environ['MESENOT_CACHE'] = str(el)
 
 
-def main():
+def thjob():
     schedule.every(5).minutes.do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)
+
+
+def main():
+    thread = threading.Thread(target=thjob)
+    thread.start()
 
 
 if __name__ == '__main__':
