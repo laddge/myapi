@@ -1,10 +1,7 @@
 import datetime
 import os
-import time
-import threading
 
 import requests
-import schedule
 from bs4 import BeautifulSoup
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
@@ -19,7 +16,7 @@ def send():
     )
 
 
-def job():
+def main():
     url = os.getenv('MESENOT_URL')
     res = requests.get(url)
     now = datetime.datetime.now()
@@ -31,18 +28,6 @@ def job():
             now = datetime.datetime.now()
             print('[{}] LINE sent'.format(now.strftime('%Y/%m/%d %H:%M:%S')))
     os.environ['MESENOT_CACHE'] = str(el)
-
-
-def thjob():
-    schedule.every(5).minutes.do(job)
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-
-def main():
-    thread = threading.Thread(target=thjob)
-    thread.start()
 
 
 if __name__ == '__main__':

@@ -21,9 +21,7 @@ import maritozzo_icon
 import tw_sn2id
 import dlmese
 import blogimg
-
-import _mesenot
-_mesenot.main()
+import mesenot
 
 
 class WakuIcon(BaseModel):
@@ -175,3 +173,8 @@ async def read_blogimg(
         return Response(content="Something wrong!")
     else:
         return Response(content=content, media_type="image/png")
+
+
+@app.get("/mesenot")
+async def read_mesenot():
+    mesenot.main()
