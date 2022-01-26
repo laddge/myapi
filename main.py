@@ -58,9 +58,7 @@ app.mount("/questbox/img", StaticFiles(directory="questbox/img"), name="questbox
 
 @app.middleware("http")
 async def middleware(request: Request, call_next):
-    if request.method == "HEAD":
-        response = Response()
-    elif "herokuapp" in urlparse(str(request.url)).netloc:
+    if "herokuapp" in urlparse(str(request.url)).netloc:
         domain = os.getenv("DOMAIN")
         if domain:
             url = urlparse(str(request.url))._replace(netloc=domain).geturl()
@@ -68,7 +66,13 @@ async def middleware(request: Request, call_next):
         else:
             response = await call_next(request)
     else:
-        response = await call_next(request)
+        if request.method == "HEAD":
+            if urlparse(str(request.url)).path == '/':
+                response = Response()
+            else:
+                response = await call_next(request)
+        else:
+            response = await call_next(request)
     return response
 
 
