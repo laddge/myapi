@@ -50,7 +50,7 @@ def get(params, widths):
         col = PIL.Image.new("RGB", (width, 200), bg)
         draw = PIL.ImageDraw.Draw(col)
         draw.text((int(width / 2), 100), text, fill=fg, font=font, anchor="mm")
-        img.paste(col, (int(i % 4 / 2) * width, img.height - 200))
+        img.paste(col, (int(i % 4 / 2) * (img.width - width), img.height - 200))
         i += 2
     buff = BytesIO()
     img.save(buff, "png")
