@@ -8,7 +8,7 @@ from io import BytesIO
 def get(params, width):
     params = params.split(",")
     font = PIL.ImageFont.truetype(
-        os.path.join(os.path.dirname(__file__), "font.ttf"), 48
+        os.path.join(os.path.dirname(__file__), "font.ttf"), 96
     )
     colors = {
         "black": (0, 0, 0),
@@ -34,13 +34,13 @@ def get(params, width):
         fg = tuple([int(sum(bg) / 3 / 128 + 1) % 2 * 255] * 3)
         text = params[i]
         if i % 4 == 0:
-            new_img = PIL.Image.new("RGB", (width * 2, img.height + 100))
+            new_img = PIL.Image.new("RGB", (width * 2, img.height + 200))
             new_img.paste(img)
             img = new_img
-        col = PIL.Image.new("RGB", (width, 100), bg)
+        col = PIL.Image.new("RGB", (width, 200), bg)
         draw = PIL.ImageDraw.Draw(col)
-        draw.text((int(width / 2), 50), text, fill=fg, font=font, anchor="mm")
-        img.paste(col, (int(i % 4 / 2) * width, img.height - 100))
+        draw.text((int(width / 2), 100), text, fill=fg, font=font, anchor="mm")
+        img.paste(col, (int(i % 4 / 2) * width, img.height - 200))
         i += 2
     buff = BytesIO()
     img.save(buff, "png")
