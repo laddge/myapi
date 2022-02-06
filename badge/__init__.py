@@ -8,7 +8,7 @@ from io import BytesIO
 def get(params, width):
     params = params.split(",")
     font = PIL.ImageFont.truetype(
-        os.path.join(os.path.dirname(__file__), "font.ttf"), 36
+        os.path.join(os.path.dirname(__file__), "font.ttf"), 48
     )
     colors = {
         "black": (0, 0, 0),
