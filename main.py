@@ -22,6 +22,7 @@ import tw_sn2id
 import dlmese
 import blogimg
 import mesenot
+import badge
 
 
 class WakuIcon(BaseModel):
@@ -67,7 +68,7 @@ async def middleware(request: Request, call_next):
             response = await call_next(request)
     else:
         if request.method == "HEAD":
-            if urlparse(str(request.url)).path == '/':
+            if urlparse(str(request.url)).path == "/":
                 response = Response()
             else:
                 response = await call_next(request)
@@ -182,3 +183,17 @@ async def read_blogimg(
 @app.get("/mesenot")
 async def read_mesenot():
     mesenot.main()
+
+
+@app.get("/badge")
+async def read_badge(
+    params: str,
+    width: int,
+):
+    try:
+        content = badge.get(params, width)
+    except Exception as e:
+        print(e)
+        return Response(content="Something wrong!")
+    else:
+        return Response(content=content, media_type="image/png")
