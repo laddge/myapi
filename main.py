@@ -188,7 +188,7 @@ async def read_mesenot():
 @app.get("/badge")
 async def read_badge(
     params: str,
-    width: int,
+    width: str,
 ):
     try:
         content = badge.get(params, width)

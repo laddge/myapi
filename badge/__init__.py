@@ -5,7 +5,7 @@ import os
 from io import BytesIO
 
 
-def get(params, width):
+def get(params, widths):
     params = params.split(",")
     font = PIL.ImageFont.truetype(
         os.path.join(os.path.dirname(__file__), "font.ttf"), 96
@@ -34,9 +34,19 @@ def get(params, width):
         fg = tuple([int(sum(bg) / 3 / 128 + 1) % 2 * 255] * 3)
         text = params[i]
         if i % 4 == 0:
-            new_img = PIL.Image.new("RGB", (width * 2, img.height + 200))
+            width = int(widths.split(",")[0])
+            if len(widths.split(",")) > 0:
+                rwidth = int(widths.split(",")[1])
+            else:
+                rwidth = int(widths)
+            new_img = PIL.Image.new("RGB", (width + rwidth, img.height + 200))
             new_img.paste(img)
             img = new_img
+        else:
+            if len(widths.split(",")) > 0:
+                width = int(widths.split(",")[1])
+            else:
+                width = int(widths)
         col = PIL.Image.new("RGB", (width, 200), bg)
         draw = PIL.ImageDraw.Draw(col)
         draw.text((int(width / 2), 100), text, fill=fg, font=font, anchor="mm")
