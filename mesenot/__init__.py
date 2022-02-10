@@ -26,7 +26,7 @@ def main():
         if os.getenv('MESENOT_CACHE') != str(el):
             send()
             now = datetime.datetime.now()
-            print('[{}] LINE sent'.format(now.strftime('%Y/%m/%d %H:%M:%S')))
+            print('[{}] LINE sent {}'.format(now.strftime('%Y/%m/%d %H:%M:%S'), str(el)))
     os.environ['MESENOT_CACHE'] = str(el)
 
 
