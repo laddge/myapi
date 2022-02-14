@@ -13,7 +13,7 @@ def main(user=""):
     auth.set_access_token(AT, AS)
     try:
         api = tweepy.API(auth)
-        print(user)
+        print(type(user))
         getuser = api.get_user(user)
         created = getuser.created_at
         today = datetime.datetime.now()
