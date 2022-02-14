@@ -13,10 +13,9 @@ def main(user=""):
     auth.set_access_token(AT, AS)
     try:
         api = tweepy.API(auth)
-        print(type(user))
-        getuser = api.get_user(user)
+        getuser = api.get_user(screen_name=user)
         created = getuser.created_at
-        today = datetime.datetime.now()
+        today = datetime.datetime.now(datetime.timezone.utc)
         passed = today - created
         min = passed.total_seconds() / 3600
         tweets = getuser.statuses_count
