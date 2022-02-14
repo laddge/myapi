@@ -23,6 +23,7 @@ import dlmese
 import blogimg
 import mesenot
 import badge
+import chocolate
 
 
 class WakuIcon(BaseModel):
@@ -197,3 +198,8 @@ async def read_badge(
         return Response(content="Something wrong!")
     else:
         return Response(content=content, media_type="image/png")
+
+
+@app.post("/chocolate")
+async def post_chocolate(request: Request):
+    return await chocolate.post(request)
