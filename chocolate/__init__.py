@@ -4,6 +4,11 @@ from linebot import LineBotApi, WebhookParser
 from linebot.models import TextSendMessage
 
 
+def get():
+    with open(os.path.join(os.path.dirname(__file__), "index.html")) as f:
+        return f.read()
+
+
 async def post(request):
     line_api = LineBotApi(channel_access_token=os.getenv("CHOCO_LINE_AT"))
     parser = WebhookParser(channel_secret=os.getenv("CHOCO_LINE_CS"))

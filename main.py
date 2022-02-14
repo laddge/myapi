@@ -200,6 +200,11 @@ async def read_badge(
         return Response(content=content, media_type="image/png")
 
 
+@app.get("/chocolate")
+async def read_chocolate():
+    return HTMLResponse(chocolate.get())
+
+
 @app.post("/chocolate")
 async def post_chocolate(request: Request):
     return await chocolate.post(request)
