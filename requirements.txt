@@ -12,3 +12,4 @@ requests
 Pillow
 line-bot-sdk
 schedule
+gunicorn
