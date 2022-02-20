@@ -1,1 +1,1 @@
-web: gunicorn -w 1 -k uvicorn.workers.UvicornWorker router:app --log-file -
+web: gunicorn -w 1 -k uvicorn.workers.UvicornWorker main:app --log-file -
