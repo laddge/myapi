@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@laddge_">
+    <meta property="og:url" content="https://api.laddge.net/waku_icon">
+    <meta property="og:title" content="ウクライナ国旗枠アイコン生成 | Laddge API">
+    <meta property="og:description" content="Twitterアイコンに自動で枠をつけます。">
+    <meta property="og:image" content="https://github.com/laddge.png">
+    <title>ウクライナ国旗枠アイコン生成 | Laddge API</title>
+</head>
+<body>
+    <h1 class="text-center m-3 fw-bold">ウクライナ国旗枠アイコン生成</h1>
+    <hr><br>
+    <div class="row mx-auto">
+        <div class="mx-auto col-auto">
+            <h5 class="fw-normal">Twitter ID:</h5>
+            <div class="input-group m-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="atmark">@</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="atmark" id="username">
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary m-3" onclick="action();">生成！！</button>
+            </div>
+        </div>
+    </div>
+    <div id="output" class="text-center"></div>
+    <script type="text/javascript">
+        function action() {
+            let output = document.getElementById('output');
+            output.innerHTML = 'Loading...';
+            let username = document.getElementById('username').value;
+            let data = {username}
+            let headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            };
+            fetch("/ua_frame", {method: 'POST', headers, body: JSON.stringify(data)})
+                .then(r => {
+                    return r.json();
+                })
+                .then(d => {
+                    console.log(JSON.stringify(d));
+                    if (d.status == 1) {
+                        output.innerHTML = '何かがおかしい...';
+                    } else {
+                        output.innerHTML = '<img src="data:image/png;base64,' + d.data + '" style="width: 50%;">';
+                    }
+                })
+                .catch(e => {
+                    output.innerHTML = '何かがおかしい...';
+                    console.log(e);
+                });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>

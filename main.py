@@ -24,6 +24,7 @@ import blogimg
 import mesenot
 import badge
 import chocolate
+import ua_frame
 
 
 class WakuIcon(BaseModel):
@@ -43,6 +44,10 @@ class Sn2Id(BaseModel):
 class Mese(BaseModel):
     team: str
     passwd: str
+
+
+class UAIcon(BaseModel):
+    username: str
 
 
 app = FastAPI()
@@ -208,3 +213,13 @@ async def read_chocolate():
 @app.post("/chocolate")
 async def post_chocolate(request: Request):
     return await chocolate.post(request)
+
+
+@app.get("/ua_frame")
+async def read_ua_frame():
+    return HTMLResponse(ua_frame.get())
+
+
+@app.post("/ua_frame")
+async def post_ua_frame(data: UAIcon):
+    return ua_frame.post(data.username)
