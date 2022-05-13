@@ -25,6 +25,7 @@ import mesenot
 import badge
 import chocolate
 import ua_frame
+import profile
 
 
 class WakuIcon(BaseModel):
@@ -223,3 +224,8 @@ async def read_ua_frame():
 @app.post("/ua_frame")
 async def post_ua_frame(data: UAIcon):
     return ua_frame.post(data.username)
+
+
+@app.get("/profile")
+async def get_profile():
+    return profile.get()
