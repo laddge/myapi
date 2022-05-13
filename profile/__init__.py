@@ -35,7 +35,7 @@ def get():
         + "base64,"
         + base64.b64encode(r0.content).decode()
     )
-    r1 = requests.get(user.profile_image_url_https)
+    r1 = requests.get(user.profile_image_url_https.replace("_normal", "_bigger"))
     d["profile_image"] = (
         "data:"
         + r1.headers["Content-Type"]
