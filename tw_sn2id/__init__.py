@@ -16,7 +16,7 @@ def post(screen_name=""):
     auth.set_access_token(AT, AS)
     try:
         api = tweepy.API(auth)
-        user = api.get_user(screen_name)
+        user = api.get_user(screen_name=screen_name)
         output = "ID: {}".format(user.id)
     except Exception as e:
         print(e)
