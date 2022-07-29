@@ -24,9 +24,10 @@ def encode(img, text):
             if p >= len(ucp):
                 break
             pix = list(img.getpixel((x, y)))
-            pix[0] = pix[0] // 5 * 5 + int(ucp[p][0])
-            pix[1] = pix[1] // 5 * 5 + int(ucp[p][1])
-            pix[2] = pix[2] // 5 * 5 + int(ucp[p][2])
+            for i in range(3):
+                pix[i] = pix[i] // 5 * 5 + int(ucp[p][i])
+                if pix[i] > 255:
+                    pix[i] -= 5
             img.putpixel((x, y), tuple(pix))
             p += 1
     return img
