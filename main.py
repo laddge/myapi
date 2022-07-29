@@ -2,7 +2,7 @@ import os
 import json
 from urllib.parse import urlparse
 
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, UploadFile, File
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -26,6 +26,7 @@ import badge
 import chocolate
 import ua_frame
 import profile
+import stegano
 
 
 class WakuIcon(BaseModel):
@@ -229,3 +230,18 @@ async def post_ua_frame(data: UAIcon):
 @app.get("/profile")
 async def get_profile():
     return profile.get()
+
+
+@app.get("/stegano")
+async def get_stegano():
+    return HTMLResponse(content=stegano.get(), status_code=200)
+
+
+@app.post("/stegano/encode")
+async def post_stegano_encode(file: UploadFile = File(...),  text: str = Form(...)):
+    return stegano.post_encode(await file.read(), text)
+
+
+@app.post("/stegano/decode")
+async def post_stegano_decode(file: UploadFile = File(...)):
+    return stegano.post_decode(await file.read())
