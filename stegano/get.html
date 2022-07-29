@@ -50,7 +50,7 @@
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <textarea class="form-control d-none" style="height: 10rem; resize: none;" id="outputText" readonly></textarea>
+                <pre class="form-control d-none" style="height: 10rem; resize: none;" id="outputText"></pre>
                 <div class="text-center">
                     <img id="outputImg" style="width: 70%;">
                 </div>
@@ -93,7 +93,7 @@
                         inputFile.value = '';
                         inputText.value = '';
                     } else {
-                        outputText.value = d.output;
+                        outputText.innerHTML = d.output;
                         outputText.classList.remove('d-none');
                         inputFile.value = '';
                         inputText.value = '';
