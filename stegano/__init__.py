@@ -51,6 +51,7 @@ def decode(img):
 
 def post_encode(img_bin, text):
     img = encode(PIL.Image.open(BytesIO(img_bin)), text)
+    decode(img)
     buff = BytesIO()
     img.save(buff, "png")
     return {"output": base64.b64encode(buff.getvalue()).decode().replace("'", "")}
